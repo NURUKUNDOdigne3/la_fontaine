@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>La Fontaine Community Center</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">        
+        <link href="img/logo.png" rel="icon">     
+
+       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">   
+
+        <link href="css/style.css" rel="stylesheet">
+          <style>
+ .events-section {
+  background-color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 36px;
+  color: #0d47a1;
+  margin-bottom: 15px;
+}
+
+.section-description {
+  max-width: 750px;
+  margin: 0 auto 50px;
+  font-size: 16px;
+  color: #555;
+}
+
+.event-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.event-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 340px;
+  text-align: left;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+}
+
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.event-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.event-content h3 {
+  color: black;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.event-date {
+  display: block;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.event-content p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.read-more-btn {
+  align-self: flex-start;
+  background-color:black;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background-color: #42d7d1;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .event-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .event-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-card {
+    width: 90%;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+}
+
+.pagination {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.view-more-btn {
+  background-color: black;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #42d7d1;
+  transform: scale(1.05);
+}
+
+
+        </style>
+   
+
+      
+    </head>
+
+    <body>        
+        <div class="top-bar d-none d-md-block">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="top-bar-left">
+                            <div class="text">
+                                <i class="fa fa-phone-alt"></i>
+                                <p>+250-787-691-062</p>
+                            </div>
+                            <div class="text">
+                                <i class="fa fa-envelope"></i>
+                                <p>info@lafontaine.org</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="top-bar-right">
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div  class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand"><img src="img/logo.png" alt=""></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="donate.html" class="nav-item nav-link">Donate</a> 
+                        <a href="event.html" class="nav-item nav-link active">Events</a>
+                        <a href="team.html" class="nav-item nav-link">Team</a>
+                       
+                        <a href="join.html" class="nav-item nav-link">Join us</a>
+
+                        <a href="contact.html"   class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page Header Start -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Events that took place</h2>
+                    </div>
+                    <div class="col-12">
+                        <a href="">Home</a>
+                        <a href="">Events</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Header End -->
+         <section class="events-section">
+  <div class="container">
+    <h2 class="section-title">Recent Events at La Fontaine</h2>
+    <p class="section-description">
+      Take a look at some of the impactful events and activities we've organized to uplift, educate, and inspire our community.
+    </p>
+
+    <div class="event-grid">
+      <div class="event-card">
+        <img src="img/bg22.jpeg" alt="Event 1">
+        <div class="event-content">
+          <h3>Community Sports Day</h3>
+          <span class="event-date">June 15, 2025</span>
+          <p>A day of fun, unity, and physical activity where youth and families came together to celebrate health and teamwork.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <img src="img/ser3.jpeg" alt="Event 2">
+        <div class="event-content">
+          <h3>Cultural Heritage Showcase</h3>
+          <span class="event-date">May 27, 2025</span>
+          <p>Traditional music, dance, and fashion were brought to life in a vibrant celebration of our Rwandan identity.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <img src="img/doda.jpeg" alt="Event 3">
+        <div class="event-content">
+          <h3>WomenWorkshop</h3>
+          <span class="event-date">April 10, 2025</span>
+          <p>Empowering local women with tools, mentorship, and knowledge to start and grow their businesses.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <img src="img/bggg.jpeg" alt="Event 3">
+        <div class="event-content">
+          <h3>WomenWorkshop</h3>
+          <span class="event-date">April 10, 2025</span>
+          <p>Empowering local women with tools, mentorship, and knowledge to start and grow their businesses.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>
+
+
+      <div class="event-card">
+        <img src="img/bg2 - Copy.png" alt="Event 3">
+        <div class="event-content">
+          <h3>Community Sports</h3>
+          <span class="event-date">April 10, 2025</span>
+          <p>Empowering local women with tools, mentorship, and knowledge to start and grow their businesses.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>
+
+       <div class="event-card">
+        <img src="img/ser3.jpeg" alt="Event 2">
+        <div class="event-content">
+          <h3>Cultural Heritage Showcase</h3>
+          <span class="event-date">May 27, 2025</span>
+          <p>Traditional music, dance, and fashion were brought to life in a vibrant celebration of our Rwandan identity.</p>
+          <a href="#" class="read-more-btn">Read More</a>
+        </div>
+      </div>   
+      
+      <div class="pagination">
+  <a href="#" class="view-more-btn">View More Events</a>
+        </div>
+
+    </div>
+  </div>
+
+</section> 
+
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-contact">
+                            <h2>Our Head Office</h2>
+                            <p><i class="fa fa-map-marker-alt"></i>Huye Distict</p>
+                            <p><i class="fa fa-phone-alt"></i>+250-787-691-062</p>
+                            <p><i class="fa fa-envelope"></i>info@lafontaine.org</p>
+                            <div class="footer-social">
+                              
+                                <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-custom" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-custom" href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-link">
+                            <h2>Popular Links</h2>
+                             <a href="index.html">Home Page</a>
+                            <a href="">About Us</a>
+                            <a href="">Contact Us</a>
+                            <a href="">Events</a>
+                        </div>
+                    </div>   
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-link">
+                            <h2>Useful Links</h2>
+                            <a href="">Privacy policy</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-newsletter">
+                            <h2>Newsletter</h2>
+                            <form>
+                                <input class="form-control" placeholder="Email goes here">
+                                <button class="btn btn-custom">Submit</button>
+                                <label>Don't worry, we don't spam!</label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container copyright">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; <a href="#">La Fontaine</a>, All Right Reserved.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Developed By <a href="https://lerony.netlify.app/" target="_blank">Lerony.co.RW</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Back to top button -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+       
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/parallax/parallax.min.js"></script>
+      
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        
+        <script src="js/main.js"></script>
+    </body>
+</html>
