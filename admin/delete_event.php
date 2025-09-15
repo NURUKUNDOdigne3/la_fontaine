@@ -1,6 +1,8 @@
 <?php
+include "connection.php"
+?>
+<?php
 
-include ("../config/conn.php");
 
 if (isset($_POST['id'])) {
   $id = $_POST['id'];

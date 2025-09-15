@@ -1,3 +1,8 @@
+<?php
+include "connection.php"
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,22 +60,22 @@
 
         <div  class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a href="index.html" class="navbar-brand"><img src="img/logo.png" alt=""></a>
+                <a href="index.php" class="navbar-brand"><img src="img/logo.png" alt=""></a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="donate.html" class="nav-item nav-link">Donate</a> 
-                        <a href="event.html" class="nav-item nav-link">Events</a>
-                        <a href="team.html" class="nav-item nav-link">Team</a>
+                        <a href="index.php" class="nav-item nav-link">Home</a>
+                        <a href="about.php" class="nav-item nav-link">About</a>
+                        <a href="donate.php" class="nav-item nav-link">Donate</a> 
+                        <a href="event.php" class="nav-item nav-link">Events</a>
+                        <a href="team.php" class="nav-item nav-link">Team</a>
                        
-                        <a href="join.html" class="nav-item nav-link active">Join us</a>
+                        <a href="join.php" class="nav-item nav-link active">Join us</a>
 
-                        <a href="contact.html"   class="nav-item nav-link">Contact</a>
+                        <a href="contact.php"   class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </div>
@@ -102,23 +107,100 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5">
                         <div class="volunteer-form">
-                            <form>
-                                <div class="control-group">
-                                    <input type="text" class="form-control" placeholder="Name" required="required" />
-                                </div>
-                                <div class="control-group">
-                                    <input type="tel" class="form-control" placeholder="Phone" required="required" />
-                                </div>
-                                <div class="control-group">
-                                    <input type="email" class="form-control" placeholder="Email" required="required" />
-                                </div>
-                                <div class="control-group">
-                                    <textarea class="form-control" placeholder="Why do you want to become a volunteer?" required="required"></textarea>
-                                </div>
-                                <div>
-                                    <button style="background-color: #f7cc2d;color: black;border: none;" class="btn btn-custom" type="submit">Join Now</button>
-                                </div>
-                            </form>
+                     <?php
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['volunteer_submit'])) {
+    // Validate and sanitize input data
+    $full_name = trim($_POST['full_name']);
+    $phone = trim($_POST['phone']);
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $motivation = trim($_POST['motivation']);
+    
+    // Validate required fields
+    $errors = [];
+    
+    if (empty($full_name)) {
+        $errors[] = "Full name is required";
+    } elseif (strlen($full_name) > 100) {
+        $errors[] = "Full name must be less than 100 characters";
+    }
+    
+    if (empty($phone)) {
+        $errors[] = "Phone number is required";
+    } elseif (strlen($phone) > 20) {
+        $errors[] = "Phone number must be less than 20 characters";
+    }
+    
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Valid email address is required";
+    } elseif (strlen($email) > 100) {
+        $errors[] = "Email must be less than 100 characters";
+    }
+    
+    if (empty($motivation)) {
+        $errors[] = "Motivation statement is required";
+    }
+    
+    // If no errors, proceed with database insertion
+    if (empty($errors)) {
+        // Prepare and bind
+        $stmt = $conn->prepare("INSERT INTO volunteer_applications (full_name, phone, email, motivation) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $full_name, $phone, $email, $motivation);
+        
+        // Execute the statement
+        if ($stmt->execute()) {
+            $success_message = "Thank you for your application! We'll be in touch soon.";
+            
+            // Clear form fields
+            $full_name = $phone = $email = $motivation = "";
+        } else {
+            $errors[] = "Error submitting your application: " . $stmt->error;
+        }
+        
+        // Close statement
+        $stmt->close();
+    }
+}
+?>
+
+<!-- Display success/error messages -->
+<?php if (isset($success_message)): ?>
+    <div class="alert alert-success mt-3">
+        <?php echo $success_message; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($errors)): ?>
+    <div class="alert alert-danger mt-3">
+        <ul class="mb-0">
+            <?php foreach ($errors as $error): ?>
+                <li><?php echo $error; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<!-- Volunteer Application Form -->
+<form action="" method="POST">
+    <div class="control-group">
+        <input type="text" class="form-control" name="full_name" placeholder="Name" required 
+               value="<?php echo isset($full_name) ? htmlspecialchars($full_name) : ''; ?>">
+    </div>
+    <div class="control-group">
+        <input type="tel" class="form-control" name="phone" placeholder="Phone" required 
+               value="<?php echo isset($phone) ? htmlspecialchars($phone) : ''; ?>">
+    </div>
+    <div class="control-group">
+        <input type="email" class="form-control" name="email" placeholder="Email" required 
+               value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+    </div>
+    <div class="control-group">
+        <textarea class="form-control" name="motivation" placeholder="Why do you want to become a volunteer?" required><?php echo isset($motivation) ? htmlspecialchars($motivation) : ''; ?></textarea>
+    </div>
+    <div>
+        <button style="background-color: #f7cc2d;color: black;border: none;" class="btn btn-custom" type="submit" name="volunteer_submit">Join Now</button>
+    </div>
+</form>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -140,65 +222,7 @@
         <!-- Volunteer End -->
         
 
-  <!-- Footer Start -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-contact">
-                            <h2>Our Head Office</h2>
-                            <p><i class="fa fa-map-marker-alt"></i>Huye Distict</p>
-                            <p><i class="fa fa-phone-alt"></i>+250-787-691-062</p>
-                            <p><i class="fa fa-envelope"></i>info@lafontaine.org</p>
-                            <div class="footer-social">
-                              
-                                <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-custom" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-custom" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Popular Links</h2>
-                             <a href="index.html">Home Page</a>
-                            <a href="">About Us</a>
-                            <a href="">Contact Us</a>
-                            <a href="">Events</a>
-                        </div>
-                    </div>   
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Useful Links</h2>
-                            <a href="">Privacy policy</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-newsletter">
-                            <h2>Newsletter</h2>
-                            <form>
-                                <input class="form-control" placeholder="Email goes here">
-                                <button class="btn btn-custom">Submit</button>
-                                <label>Don't worry, we don't spam!</label>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container copyright">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>&copy; <a href="#">La Fontaine</a>, All Right Reserved.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Developed By <a href="https://lerony.netlify.app/" target="_blank">Lerony.co.RW</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+  <?php include "footer.php" ?>
         
         <!-- Back to top button -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
