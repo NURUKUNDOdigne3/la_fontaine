@@ -152,7 +152,6 @@ include "connection.php"
                             $errors['message'] = "Please enter your message";
                         }
 
-                        // If no errors, proceed with database insertion
                         if (empty($errors)) {
                             // Prepare and bind
                             $stmt = $conn->prepare("INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
@@ -160,21 +159,19 @@ include "connection.php"
 
                             // Execute the statement
                             if ($stmt->execute()) {
-                                $success_message = "Thank you for your message! We'll get back to you soon.";
-
+                                echo '<script>alert("Thank you for your message! We\'ll get back to you soon.");</script>';
                                 // Clear form fields
                                 $name = $email = $subject = $message = "";
                             } else {
                                 $errors['general'] = "Error sending your message: " . $stmt->error;
                             }
 
-                            // Close statement
                             $stmt->close();
                         }
                     }
                     ?>
 
-                    <form name="sentMessage"   method="POST" action="">
+                    <form name="sentMessage" method="POST" action="">
                         <div class="control-group">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required="required" 
                                    data-validation-required-message="Please enter your name" 
@@ -207,7 +204,7 @@ include "connection.php"
                             </p>
                         </div>
                         <div>
-                            <button class="btn btn-custom" type="submit" >Send Message</button>
+                            <button class="btn btn-custom" name="send_message" type="submit" >Send Message</button>
                         </div>
                     </form>
                 </div>
