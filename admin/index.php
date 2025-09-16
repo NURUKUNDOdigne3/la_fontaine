@@ -1,3 +1,6 @@
+<?php
+include "../connection.php"
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +65,7 @@
                     <span  class="link-name" style="color: #09610d;font-weight: bold;">Dashboard</span>
                 </a></li> 
               <li>
-  <a href="add_event.html">
+  <a href="add_event.php">
     <i style="color: white;" class="uil uil-files-landscapes"></i>
     <span class="link-name" style="color: white;">Add Event</span>
   </a>

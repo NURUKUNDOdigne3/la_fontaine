@@ -1,3 +1,7 @@
+<?php
+include "connection.php"
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -193,22 +197,22 @@
 
         <div  class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a href="index.html" class="navbar-brand"><img src="img/logo.png" alt=""></a>
+                <a href="index.php" class="navbar-brand"><img src="img/logo.png" alt=""></a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="donate.html" class="nav-item nav-link">Donate</a> 
-                        <a href="event.html" class="nav-item nav-link active">Events</a>
-                        <a href="team.html" class="nav-item nav-link">Team</a>
+                        <a href="index.php" class="nav-item nav-link">Home</a>
+                        <a href="about.php" class="nav-item nav-link">About</a>
+                        <a href="donate.php" class="nav-item nav-link">Donate</a> 
+                        <a href="event.php" class="nav-item nav-link active">Events</a>
+                        <a href="team.php" class="nav-item nav-link">Team</a>
                        
-                        <a href="join.html" class="nav-item nav-link">Join us</a>
+                        <a href="join.php" class="nav-item nav-link">Join us</a>
 
-                        <a href="contact.html"   class="nav-item nav-link">Contact</a>
+                        <a href="contact.php"   class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </div>
@@ -230,7 +234,7 @@
         </div>
 
         <!-- Page Header End -->
-         <section class="events-section">
+ <!-- <section class="events-section">
   <div class="container">
     <h2  class="section-title">Recent Events at La Fontaine Community Learning Center</h2>
     <p class="section-description">
@@ -284,67 +288,73 @@
     </div>
   </div>
 
-</section> 
+</section>  -->
 
-        <!-- Footer Start -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-contact">
-                            <h2>Our Head Office</h2>
-                            <p><i class="fa fa-map-marker-alt"></i>Huye Distict</p>
-                            <p><i class="fa fa-phone-alt"></i>+250-787-691-062</p>
-                            <p><i class="fa fa-envelope"></i>info@lafontaine.org</p>
-                            <div class="footer-social">
-                              
-                                <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-custom" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-custom" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Popular Links</h2>
-                             <a href="index.html">Home Page</a>
-                            <a href="">About Us</a>
-                            <a href="">Contact Us</a>
-                            <a href="">Events</a>
-                        </div>
-                    </div>   
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Useful Links</h2>
-                            <a href="">Privacy policy</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-newsletter">
-                            <h2>Newsletter</h2>
-                            <form>
-                                <input class="form-control" placeholder="Email goes here">
-                                <button class="btn btn-custom">Submit</button>
-                                <label>Don't worry, we don't spam!</label>
-                            </form>
-                        </div>
-                    </div>
+<?php
+// Fetch all events from the database
+$query = "SELECT id, event_title, date_event, event_description, event_picture, created_at 
+          FROM events 
+          ORDER BY date_event DESC";
+$result = mysqli_query($conn, $query);
+
+// Check if we have events
+if (mysqli_num_rows($result) > 0) {
+    echo '<section class="events-section">
+          <div class="container">
+            <h2 class="section-title">Recent Events at La Fontaine Community Learning Center</h2>
+            <p class="section-description">
+                Take a look at some of the impactful events and activities we\'ve organized to uplift, educate, and inspire our community.
+            </p>
+    
+            <div class="event-grid">';
+    
+    // Loop through each event
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Format the date
+        $event_date = date('F j, Y', strtotime($row['date_event']));
+        
+        // Shorten description if needed
+        $description = $row['event_description'];
+        if (strlen($description) > 200) {
+            $description = substr($description, 0, 200) . '...';
+        }
+        
+        echo '<div class="event-card">
+                <img src="uploads/events/' . $row['event_picture'] . '" alt="' . $row['event_title'] . '">
+                <div class="event-content">
+                    <h3>' . $row['event_title'] . '</h3>
+                    <span class="event-date">' . $event_date . '</span>
+                    <p>' . $description . '</p>
+                    <a href="event_details.php?id=' . $row['id'] . '" class="read-more-btn">Read More</a>
                 </div>
-            </div>
-            <div class="container copyright">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>&copy; <a href="#">La Fontaine</a>, All Right Reserved.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Developed By <a href="https://lerony.netlify.app/" target="_blank">Lerony.co.RW</a></p>
-                    </div>
-                </div>
-            </div>
+              </div>';
+    }
+    
+    echo '
         </div>
-        <!-- Footer End -->
+
+      </div>
+      <div class="pagination">
+            <a href="all_events.php" class="view-more-btn">View More Events</a>
+          </div>
+    </section>';
+} else {
+    // Display message if no events found
+    echo '<section class="events-section">
+          <div class="container">
+            <h2 class="section-title">Recent Events at La Fontaine Community Learning Center</h2>
+            <p class="section-description">
+                Take a look at some of the impactful events and activities we\'ve organized to uplift, educate, and inspire our community.
+            </p>
+            <div class="no-events">
+                <p>No events found. Check back later for upcoming events!</p>
+            </div>
+          </div>
+        </section>';
+}
+?>
+
+       <?php include "footer.php" ?>
         
         <!-- Back to top button -->
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
