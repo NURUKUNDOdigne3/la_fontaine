@@ -80,8 +80,9 @@ include "connection.php"
         }
         
         .page-header h2 {
-            font-size: 2.5rem;
+            font-size: 5.5rem;
             font-weight: 700;
+            color:#f7cc2d;
         }
         
         .page-header a {
@@ -121,7 +122,7 @@ include "connection.php"
         }
         
         .donate-form {
-            background: rgba(255, 255, 255, 0.95);
+            background: #09610d;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
